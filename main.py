@@ -18,7 +18,7 @@ checkpoint = keras.callbacks.ModelCheckpoint(
     filepath, save_weights_only=True, save_best_only=True, verbose=1
 )
 
-label_processor, feature_data, mask_data, label = preprocessing(data_path)
+label_processor, feature_data, label = preprocessing(data_path)
 X_train, X_test, y_train, y_test = split_data(X=feature_data, y=label, test_size=test_size)
 
 # Training phase

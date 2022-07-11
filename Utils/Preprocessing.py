@@ -10,8 +10,9 @@ from sklearn.model_selection import train_test_split
 keras = tf.keras
 
 def preprocessing(data_path):
-    label_df = pd.read_csv(os.path.join(data_path, "label.csv"), index_col=0)
-    label = label_df.to_numpy()
+    data_mapping = pd.read_csv(os.path.join(data_path, "data_mapping.csv"), index_col=0)
+    label = data_mapping["tag"].to_numpy()
+    video_name = data_mapping["video_name"]
     n_sample = label.shape[0]
     tag = ['adl', 'fall']
     label_processor = keras.layers.StringLookup(
@@ -20,18 +21,19 @@ def preprocessing(data_path):
     
     # Get input for model
     feature_data = []
-    mask_data = []
+    # mask_data = []
     for i in tqdm(range(n_sample)):
-        feature_path = os.path.join(data_path, "Feature", f"{i}.csv")
-        mask_path = os.path.join(data_path, "Mask", f"{i}.csv")
+        name = video_name[i]
+        feature_path = os.path.join(data_path, "Feature", f"{name}")
+        # mask_path = os.path.join(data_path, "Mask", f"{i}.csv")
         feature_df = pd.read_csv(feature_path)
-        mask_df = pd.read_csv(mask_path)
+        # mask_df = pd.read_csv(mask_path)
         feature_data.append(feature_df.to_numpy())
-        mask_data.append(mask_df.to_numpy())
+        # mask_data.append(mask_df.to_numpy())
 
     feature_data = np.array(feature_data)
-    mask_data = np.array(mask_data)
-    return label_processor, feature_data, mask_data, label
+    # mask_data = np.array(mask_data)
+    return label_processor, feature_data, label
 
 
 def split_data(X, y, test_size):
