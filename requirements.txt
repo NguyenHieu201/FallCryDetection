@@ -7,3 +7,4 @@ imageio
 opencv-python
 tqdm
 scikit-learn
+imbalanced-learn

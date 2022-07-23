@@ -12,10 +12,10 @@ epochs = config["hyper-parameters"]["epochs"]
 batch_size = config["hyper-parameters"]["batch-size"]
 test_size = config["test-size"]
 
+save_path = config["save-path"]
 
-filepath = "Results/"
 checkpoint = keras.callbacks.ModelCheckpoint(
-    filepath, save_weights_only=True, save_best_only=True, verbose=1
+    save_path, save_weights_only=True, save_best_only=True, verbose=1
 )
 
 label_processor, feature_data, label = preprocessing(data_path)
@@ -31,7 +31,7 @@ history = model.fit(
     batch_size=batch_size,
     callbacks=[checkpoint]
 )
-model.load_weights(filepath)
+model.load_weights(save_path)
 _, accuracy = model.evaluate(feature_data, label)
 print(f"Accuracy : {round(accuracy * 100, 2)}%")
 
