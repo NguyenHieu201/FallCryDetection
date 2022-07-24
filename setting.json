@@ -1,11 +1,11 @@
 {
-  "activity-path": "Data/Activity/content/Activity",
-  "fall-path": "Data/Fall/content/Fall",
+  "activity-path": "Data/Activity/content/Activity_1",
+  "fall-path": "Data/Fall/content/Fall_1",
   "test-size": 0.3,
   "hyper-parameters": {
     "img-size": 320,
     "batch-size": 64,
-    "epochs": 10,
+    "epochs": 100,
     "seq-len": 20,
     "num-feature": 2048
   },
