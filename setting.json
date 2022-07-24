@@ -1,5 +1,6 @@
 {
-  "data-path": "Data/content/Data",
+  "activity-path": "Data/Activity/content/Activity",
+  "fall-path": "Data/Fall/content/Fall",
   "test-size": 0.3,
   "hyper-parameters": {
     "img-size": 320,

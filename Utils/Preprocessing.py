@@ -9,30 +9,28 @@ from sklearn.model_selection import train_test_split
 # keras now is lazy loading module
 keras = tf.keras
 
-def preprocessing(data_path):
-    data_mapping = pd.read_csv(os.path.join(data_path, "data_mapping.csv"), index_col=0)
-    label = data_mapping["tag"].to_numpy()
-    video_name = data_mapping["video_name"]
-    n_sample = label.shape[0]
+def preprocessing(config):
     tag = ['adl', 'fall']
     label_processor = keras.layers.StringLookup(
         num_oov_indices=0, vocabulary=pd.DataFrame(tag)[0]
     )
-    
-    # Get input for model
-    feature_data = []
-    # mask_data = []
-    for i in tqdm(range(n_sample)):
-        name = video_name[i]
-        feature_path = os.path.join(data_path, "Feature", f"{name}")
-        # mask_path = os.path.join(data_path, "Mask", f"{i}.csv")
-        feature_df = pd.read_csv(feature_path)
-        # mask_df = pd.read_csv(mask_path)
-        feature_data.append(feature_df.to_numpy())
-        # mask_data.append(mask_df.to_numpy())
+    activity_path = config["activity-path"]
+    fall_path = config["fall-path"]
 
+    feature_data = []
+
+    for file in tqdm(os.listdir(activity_path)):
+        file_path = os.path.join(activity_path, file)
+        df = pd.read_csv(file_path)
+        feature_data.append(df.to_numpy())
+        
+    for file in tqdm(os.listdir(fall_path)):
+        file_path = os.path.join(fall_path, file)
+        df = pd.read_csv(file_path)
+        feature_data.append(df.to_numpy())
+        
     feature_data = np.array(feature_data)
-    # mask_data = np.array(mask_data)
+    label = ["adl"] * len(os.listdir(activity_path)) + ["fall"] * len(os.listdir(fall_path))
     return label_processor, feature_data, label
 
 
