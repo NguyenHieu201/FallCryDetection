@@ -1,6 +1,6 @@
 {
-  "activity-path": "Data/Activity_1/content/Activity",
-  "fall-path": "Data/Fall_1/content/Fall",
+  "activity-path": "Data/Activity_2/content/Activity",
+  "fall-path": "Data/Fall_2/content/Fall",
   "test-size": 0.3,
   "hyper-parameters": {
     "img-size": 320,
